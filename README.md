@@ -1,11 +1,11 @@
-# Dr. Di Pasquale Lorena - Psicologa e Psicoterapeuta
+# Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta
 
-Professional website for Dr. Di Pasquale Lorena, a psychologist and psychotherapist based in Ragusa, Italy.
+Professional website for Dott.ssa Di Pasquale Lorena, a psychologist and psychotherapist based in Ragusa, Italy.
 
 ## Features
 
 - **Modern Responsive Design** - Works perfectly on desktop, tablet, and mobile
-- **Professional Bio Section** - Detailed information about Dr. Di Pasquale Lorena's qualifications and experience
+- **Professional Bio Section** - Detailed information about Dott.ssa Di Pasquale Lorena's qualifications and experience
 - **Comprehensive Services** - Complete list of psychological treatments offered
 - **Online Appointment Booking** - Interactive form for scheduling appointments
 - **Contact Information** - Complete contact details and location map
@@ -38,7 +38,7 @@ Professional website for Dr. Di Pasquale Lorena, a psychologist and psychotherap
 
 ## Deployment
 
-This website is deployed using GitHub Pages and is accessible at [dipasqualelorenapsicologa.it](https://dipasqualelorenapsicologa.it)
+This website is deployed using GitHub Pages and is accessible at [dipasqualelorena.it](https://dipasqualelorena.it)
 
 ## License
 
