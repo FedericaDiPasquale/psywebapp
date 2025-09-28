@@ -49,6 +49,8 @@ successMessage.innerHTML = 'Grazie! La tua richiesta è stata inviata con succes
 appointmentForm.parentNode.insertBefore(successMessage, appointmentForm);
 
 appointmentForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Always prevent default submission
+    
     // Get form data
     const formData = new FormData(appointmentForm);
     const data = Object.fromEntries(formData);
@@ -94,7 +96,6 @@ appointmentForm.addEventListener('submit', function(e) {
     }
     
     if (!isValid) {
-        e.preventDefault();
         showNotification('Per favore, controlla i campi evidenziati in rosso.', 'error');
         return;
     }
@@ -106,8 +107,33 @@ appointmentForm.addEventListener('submit', function(e) {
     submitBtn.disabled = true;
     appointmentForm.classList.add('loading');
     
-    // Allow form to submit naturally to Formspree
-    // The target="_blank" will open Formspree's success page in a new tab
+    // Submit form via AJAX
+    fetch('https://formspree.io/f/xnngjrkq', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Success - show alert and reset form
+            appointmentForm.reset();
+            showNotification('Grazie! La tua richiesta è stata inviata con successo. Ti contatteremo presto per confermare l\'appuntamento.', 'success');
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Errore nell\'invio della richiesta. Riprova più tardi o contattaci direttamente.', 'error');
+    })
+    .finally(() => {
+        // Reset button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        appointmentForm.classList.remove('loading');
+    });
 });
 
 // Helper function to get service name
