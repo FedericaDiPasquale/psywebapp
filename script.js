@@ -269,13 +269,10 @@ const messageTextarea = document.getElementById('message');
 
 serviceSelect.addEventListener('change', function() {
     const serviceMessages = {
-        'individual': 'Descrivi brevemente le difficoltà che stai affrontando o gli obiettivi che vorresti raggiungere...',
-        'couple': 'Descrivi le difficoltà che state attraversando come coppia...',
-        'adolescent': 'Descrivi le difficoltà che il/la ragazzo/a sta affrontando...',
-        'family': 'Descrivi le dinamiche familiari e le difficoltà che state vivendo...',
-        'stress': 'Descrivi le situazioni di stress che stai vivendo...',
-        'grief': 'Descrivi la perdita che stai elaborando...',
-        'consultation': 'Descrivi il motivo della prima consultazione...'
+        'support': 'Descrivi brevemente le difficoltà che stai affrontando e il tipo di supporto di cui hai bisogno...',
+        'diagnostic': 'Descrivi il motivo della consultazione psicodiagnostica e le aree che vorresti valutare...',
+        'psychotherapy': 'Descrivi le difficoltà psicologiche o relazionali che stai affrontando...',
+        'consultation': 'Descrivi il motivo della prima consultazione e le tue aspettative...'
     };
     
     const placeholder = serviceMessages[this.value] || 'Descrivi brevemente il motivo della richiesta o eventuali preferenze...';

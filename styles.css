@@ -217,8 +217,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-photo {
-    width: 240px;
-    height: 240px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
@@ -273,10 +273,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    display: block;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .about-text h3 {
@@ -773,10 +772,9 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
     }
 
-    .hero-photo,
-    .about-placeholder {
-        width: 200px;
-        height: 200px;
+    .hero-photo {
+        width: 250px;
+        height: 250px;
     }
 
     .about-placeholder {
@@ -803,6 +801,11 @@ h1, h2, h3, h4, h5, h6 {
     
     .hero-tagline {
         font-size: 1rem;
+    }
+    
+    .hero-photo {
+        width: 200px;
+        height: 200px;
     }
 
     .section-header h2 {
