@@ -347,6 +347,30 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+.credential-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.credential-list li {
+    color: #4a5568;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+    line-height: 1.5;
+}
+
+.credential-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #2c5aa0;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 .about-image {
     display: flex;
     justify-content: center;
