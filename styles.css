@@ -890,3 +890,92 @@ h1, h2, h3, h4, h5, h6 {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* Form Success Message */
+.success-message {
+    display: none;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+    animation: slideInDown 0.5s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Loading State */
+.booking-form.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.booking-form.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    z-index: 10;
+}
+
+.booking-form.loading .btn-primary {
+    background: #a0a0a0;
+    cursor: not-allowed;
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notification-success {
+    background: #48bb78;
+}
+
+.notification-error {
+    background: #e53e3e;
+}
+
+.notification-warning {
+    background: #ed8936;
+}
+
+.notification-info {
+    background: var(--primary-color);
+}
+
+/* Mobile Notification */
+@media (max-width: 768px) {
+    .notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}

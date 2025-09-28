@@ -49,8 +49,6 @@ successMessage.innerHTML = 'Grazie! La tua richiesta è stata inviata con succes
 appointmentForm.parentNode.insertBefore(successMessage, appointmentForm);
 
 appointmentForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
     // Get form data
     const formData = new FormData(appointmentForm);
     const data = Object.fromEntries(formData);
@@ -96,6 +94,7 @@ appointmentForm.addEventListener('submit', function(e) {
     }
     
     if (!isValid) {
+        e.preventDefault();
         showNotification('Per favore, controlla i campi evidenziati in rosso.', 'error');
         return;
     }
@@ -107,41 +106,31 @@ appointmentForm.addEventListener('submit', function(e) {
     submitBtn.disabled = true;
     appointmentForm.classList.add('loading');
     
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-        // Reset form
-        appointmentForm.reset();
-        
-        // Show success message
-        successMessage.style.display = 'block';
-        successMessage.scrollIntoView({ behavior: 'smooth' });
-        
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        appointmentForm.classList.remove('loading');
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-            successMessage.style.display = 'none';
-        }, 5000);
-        
-        // Log the appointment data (in a real app, this would be sent to a server)
-        console.log('Appointment Request:', {
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            service: data.service,
-            date: data.date,
-            time: data.time,
-            message: data.message,
-            timestamp: new Date().toISOString()
-        });
-        
-        showNotification('Richiesta inviata con successo!', 'success');
-        
-    }, 2000);
+    // Form will submit to Formspree automatically
+    // Success/error handling will be done via URL parameters
 });
+
+// Helper function to get service name
+function getServiceName(serviceValue) {
+    const serviceNames = {
+        'support': 'Sostegno Psicologico',
+        'diagnostic': 'Consultazione Psicodiagnostica',
+        'psychotherapy': 'Psicoterapia Individuale Adulti e Adolescenti',
+        'consultation': 'Prima Consultazione'
+    };
+    return serviceNames[serviceValue] || serviceValue;
+}
+
+// Helper function to format date
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('it-IT', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
 
 // Set minimum date to today
 const dateInput = document.getElementById('date');
