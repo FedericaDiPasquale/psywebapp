@@ -106,8 +106,8 @@ appointmentForm.addEventListener('submit', function(e) {
     submitBtn.disabled = true;
     appointmentForm.classList.add('loading');
     
-    // Form will submit to Formspree automatically
-    // Success/error handling will be done via URL parameters
+    // Allow form to submit naturally to Formspree
+    // The target="_blank" will open Formspree's success page in a new tab
 });
 
 // Helper function to get service name
