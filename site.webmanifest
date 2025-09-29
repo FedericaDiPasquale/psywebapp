@@ -1,0 +1,30 @@
+{
+    "name": "Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta",
+    "short_name": "Psicologa Ragusa",
+    "description": "Psicologa e Psicoterapeuta specializzata a Ragusa. Terapia online e presenziale per adulti e adolescenti.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4A90E2",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["health", "medical", "psychology"],
+    "lang": "it",
+    "dir": "ltr"
+}
