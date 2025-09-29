@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://lorenadipasquale.psypec.it/sitemap.xml
+Sitemap: https://dipasqualelorena.it/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

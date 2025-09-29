@@ -16,10 +16,10 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lorenadipasquale.psypec.it/">
+    <meta property="og:url" content="https://dipasqualelorena.it/">
     <meta property="og:title" content="Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta a Ragusa">
     <meta property="og:description" content="Psicologa e Psicoterapeuta specializzata a Ragusa. Terapia online e presenziale per adulti e adolescenti. Prima consultazione gratuita. Albo Sicilia n. 10319-A.">
-    <meta property="og:image" content="https://lorenadipasquale.psypec.it/fotopsyweb.jpg">
+    <meta property="og:image" content="https://dipasqualelorena.it/fotopsyweb.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Dott.ssa Di Pasquale Lorena - Psicologa">
@@ -27,10 +27,10 @@
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://lorenadipasquale.psypec.it/">
+    <meta property="twitter:url" content="https://dipasqualelorena.it/">
     <meta property="twitter:title" content="Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta a Ragusa">
     <meta property="twitter:description" content="Psicologa e Psicoterapeuta specializzata a Ragusa. Terapia online e presenziale per adulti e adolescenti. Prima consultazione gratuita.">
-    <meta property="twitter:image" content="https://lorenadipasquale.psypec.it/fotopsyweb.jpg">
+    <meta property="twitter:image" content="https://dipasqualelorena.it/fotopsyweb.jpg">
     
     <!-- Additional SEO Meta Tags -->
     <meta name="geo.region" content="IT-SR">
@@ -41,7 +41,7 @@
     <meta name="msapplication-TileColor" content="#4A90E2">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lorenadipasquale.psypec.it/">
+    <link rel="canonical" href="https://dipasqualelorena.it/">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -60,6 +60,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            // Enhanced measurement for better insights
+            send_page_view: true,
+            // Custom parameters for psychology practice
+            custom_map: {
+                'custom_parameter_1': 'service_type',
+                'custom_parameter_2': 'appointment_booking'
+            }
+        });
+        
+        // Track form submissions
+        function trackFormSubmission(formType) {
+            gtag('event', 'form_submit', {
+                'event_category': 'engagement',
+                'event_label': formType,
+                'value': 1
+            });
+        }
+        
+        // Track phone clicks
+        function trackPhoneClick() {
+            gtag('event', 'phone_call', {
+                'event_category': 'contact',
+                'event_label': 'phone_click',
+                'value': 1
+            });
+        }
+        
+        // Track email clicks
+        function trackEmailClick() {
+            gtag('event', 'email_click', {
+                'event_category': 'contact',
+                'event_label': 'email_click',
+                'value': 1
+            });
+        }
+    </script>
+    
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -67,9 +111,9 @@
         "@type": "ProfessionalService",
         "name": "Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta",
         "description": "Psicologa e Psicoterapeuta specializzata a Ragusa. Terapia online e presenziale per adulti e adolescenti. Specializzata in TFP, EMDR e Mindfulness.",
-        "url": "https://lorenadipasquale.psypec.it",
-        "logo": "https://lorenadipasquale.psypec.it/fotopsyweb.jpg",
-        "image": "https://lorenadipasquale.psypec.it/fotopsyweb.jpg",
+        "url": "https://dipasqualelorena.it",
+        "logo": "https://dipasqualelorena.it/fotopsyweb.jpg",
+        "image": "https://dipasqualelorena.it/fotopsyweb.jpg",
         "telephone": "+39 3403531992",
         "email": "lorenadipasqualepsicologa@gmail.com",
         "address": {
@@ -164,7 +208,7 @@
             ]
         },
         "sameAs": [
-            "https://lorenadipasquale.psypec.it"
+            "https://dipasqualelorena.it"
         ]
     }
     </script>
@@ -206,7 +250,7 @@
         <section id="home" class="hero" role="banner">
             <div class="hero-container">
                 <div class="hero-content">
-                    <h2>Dott.ssa<br>Di Pasquale Lorena</h2>
+                    <h1>Dott.ssa<br>Di Pasquale Lorena</h1>
                     <p class="hero-subtitle">Psicologa • Psicoterapeuta</p>
                     <p class="hero-tagline">Terapia Online e Presenziale</p>
                 <p class="hero-description">
@@ -235,7 +279,7 @@
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
-                        <h2 id="about-heading">Chi Sono</h2>
+                        <h3 id="about-heading">Chi Sono</h3>
                     <p>
                         Sono la Dott.ssa Lorena Di Pasquale, psicologa iscritta all'Albo della Regione Sicilia (n. 10319-A) 
                         e psicoterapeuta specializzata presso l'Istituto Italiano di Psicoterapia Psicoanalitica di Palermo. 
@@ -259,7 +303,7 @@
                         <div class="credential">
                             <i class="fas fa-graduation-cap" aria-hidden="true"></i>
                             <div>
-                                <h3>Formazione</h3>
+                                <h4>Formazione</h4>
                                 <ul class="credential-list">
                                     <li>Laurea triennale in Scienze e Tecniche Psicologiche conseguita presso l'Università degli studi Kore di Enna</li>
                                     <li>Laurea Magistrale in Psicologia Clinica e di Comunità conseguita presso l'Università degli Studi di Torino</li>
@@ -272,7 +316,7 @@
                         <div class="credential">
                             <i class="fas fa-certificate" aria-hidden="true"></i>
                             <div>
-                                <h3>Certificazioni</h3>
+                                <h4>Certificazioni</h4>
                                 <ul class="credential-list">
                                     <li>TFP (Transference Focused Psychotherapy per il trattamento dei disturbi di personalità) Livello A e B</li>
                                     <li>Facilitatore Mindfulness</li>
@@ -404,7 +448,7 @@
                             <input type="checkbox" id="privacy" name="privacy" required>
                             <label for="privacy">Accetto il trattamento dei dati personali secondo la privacy policy *</label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full">Invia Richiesta</button>
+                        <button type="submit" class="btn btn-primary btn-full" onclick="trackFormSubmission('appointment_booking')">Invia Richiesta</button>
                     </form>
                 </div>
                 <aside class="booking-info">
@@ -437,7 +481,7 @@
                         <div>
                             <h4>Contatto Diretto</h4>
                             <p>Per urgenze o informazioni<br>
-                            scrivi direttamente su <strong>Whatsapp</strong> al numero: <strong>+39 3403531992</strong></p>
+                            scrivi direttamente su <strong><a href="https://wa.me/393403531992" onclick="trackPhoneClick()" target="_blank" rel="noopener">Whatsapp</a></strong> al numero: <strong>+39 3403531992</strong></p>
                         </div>
                     </div>
                 </aside>
@@ -466,14 +510,14 @@
                         <i class="fas fa-phone" aria-hidden="true"></i>
                         <div>
                             <h3>Telefono</h3>
-                            <p><a href="tel:+393403531992">+39 3403531992</a></p>
+                            <p><a href="tel:+393403531992" onclick="trackPhoneClick()">+39 3403531992</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope" aria-hidden="true"></i>
                         <div>
                             <h3>Email</h3>
-                            <p><a href="mailto:lorenadipasqualepsicologa@gmail.com">lorenadipasqualepsicologa@gmail.com</a></p>
+                            <p><a href="mailto:lorenadipasqualepsicologa@gmail.com" onclick="trackEmailClick()">lorenadipasqualepsicologa@gmail.com</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
