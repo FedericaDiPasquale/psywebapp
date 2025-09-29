@@ -60,6 +60,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QB7378CYP0"></script>
     <script>
@@ -258,11 +259,11 @@
     <!-- Hero Section -->
     <main>
         <section id="home" class="hero" role="banner">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1>Dott.ssa<br>Di Pasquale Lorena</h1>
-                    <p class="hero-subtitle">Psicologa • Psicoterapeuta</p>
-                    <p class="hero-tagline">Terapia Online e Presenziale</p>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Dott.ssa<br>Di Pasquale Lorena</h1>
+                <p class="hero-subtitle">Psicologa • Psicoterapeuta</p>
+                <p class="hero-tagline">Terapia Online e Presenziale</p>
                 <p class="hero-description">
                     Accompagno le persone nel loro percorso di crescita personale e benessere psicologico 
                     attraverso un approccio terapeutico personalizzato e professionale.
@@ -284,11 +285,11 @@
         </div>
     </section>
 
-        <!-- About Section -->
+    <!-- About Section -->
         <section id="about" class="about" role="main" aria-labelledby="about-heading">
-            <div class="container">
-                <div class="about-content">
-                    <div class="about-text">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
                         <h3 id="about-heading">Chi Sono</h3>
                     <p>
                         Sono la Dott.ssa Lorena Di Pasquale, psicologa iscritta all'Albo della Regione Sicilia (n. 10319-A) 
@@ -340,13 +341,13 @@
         </div>
     </section>
 
-        <!-- Services Section -->
+    <!-- Services Section -->
         <section id="services" class="services" aria-labelledby="services-heading">
-            <div class="container">
-                <div class="section-header">
+        <div class="container">
+            <div class="section-header">
                     <h2 id="services-heading">I Miei Trattamenti</h2>
-                    <p>Approcci terapeutici personalizzati per il tuo benessere</p>
-                </div>
+                <p>Approcci terapeutici personalizzati per il tuo benessere</p>
+            </div>
             <div class="services-grid">
                 <article class="service-card">
                     <div class="service-icon">
@@ -400,13 +401,13 @@
         </div>
     </section>
 
-        <!-- Booking Section -->
+    <!-- Booking Section -->
         <section id="booking" class="booking" aria-labelledby="booking-heading">
-            <div class="container">
-                <div class="section-header">
+        <div class="container">
+            <div class="section-header">
                     <h2 id="booking-heading">Prenota un Appuntamento</h2>
-                    <p>Scegli il giorno e l'orario più comodo per te</p>
-                </div>
+                <p>Scegli il giorno e l'orario più comodo per te</p>
+            </div>
             <div class="booking-container">
                 <div class="booking-form">
                     <form id="appointmentForm" action="https://formspree.io/f/xnngjrkq" method="POST">
@@ -418,37 +419,61 @@
                             <label for="email">Email *</label>
                             <input type="email" id="email" name="email" required>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Telefono *</label>
-                            <input type="tel" id="phone" name="phone" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Telefono *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Tipo di Consultazione *</label>
+                                <select id="service" name="service" required>
+                                    <option value="">Seleziona un servizio</option>
+                                    <option value="support">Sostegno Psicologico</option>
+                                    <option value="diagnostic">Consultazione Psicodiagnostica</option>
+                                    <option value="psychotherapy">Psicoterapia Individuale Adulti e Adolescenti</option>
+                                    <option value="consultation">Prima Consultazione</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="service">Tipo di Consultazione *</label>
-                            <select id="service" name="service" required>
-                                <option value="">Seleziona un servizio</option>
-                                <option value="support">Sostegno Psicologico</option>
-                                <option value="diagnostic">Consultazione Psicodiagnostica</option>
-                                <option value="psychotherapy">Psicoterapia Individuale Adulti e Adolescenti</option>
-                                <option value="consultation">Prima Consultazione</option>
-                            </select>
+                            <label>Data e Orario Preferiti *</label>
+                            <div class="calendar-widget">
+                                <div class="calendar-container">
+                                    <div class="calendar-header">
+                                        <button type="button" class="calendar-nav" onclick="changeMonth(-1)">‹</button>
+                                        <h4 id="currentMonth"></h4>
+                                        <button type="button" class="calendar-nav" onclick="changeMonth(1)">›</button>
+                                    </div>
+                                    <div class="calendar-grid">
+                                        <div class="calendar-weekdays">
+                                            <div>Lun</div>
+                                            <div>Mar</div>
+                                            <div>Mer</div>
+                                            <div>Gio</div>
+                                            <div>Ven</div>
+                                            <div>Sab</div>
+                                            <div>Dom</div>
+                                        </div>
+                                        <div id="calendarDays" class="calendar-days"></div>
+                                    </div>
+                                </div>
+                                <div class="time-selection">
+                                    <h5>Orari Disponibili</h5>
+                                    <div class="time-slots">
+                                        <button type="button" class="time-slot" data-time="09:00">09:00</button>
+                                        <button type="button" class="time-slot" data-time="10:00">10:00</button>
+                                        <button type="button" class="time-slot" data-time="11:00">11:00</button>
+                                        <button type="button" class="time-slot" data-time="12:00">12:00</button>
+                                        <button type="button" class="time-slot" data-time="14:00">14:00</button>
+                                        <button type="button" class="time-slot" data-time="15:00">15:00</button>
+                                        <button type="button" class="time-slot" data-time="16:00">16:00</button>
+                                        <button type="button" class="time-slot" data-time="17:00">17:00</button>
+                                        <button type="button" class="time-slot" data-time="18:00">18:00</button>
+                                    </div>
+                                </div>
                         </div>
-                        <div class="form-group">
-                            <label for="date">Data Preferita *</label>
-                            <input type="date" id="date" name="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Orario Preferito *</label>
-                            <select id="time" name="time" required>
-                                <option value="">Seleziona un orario</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                            </select>
+                            <input type="hidden" id="selectedDate" name="date" required>
+                            <input type="hidden" id="selectedTime" name="time" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Messaggio (opzionale)</label>
@@ -499,13 +524,13 @@
         </div>
     </section>
 
-        <!-- Contact Section -->
+    <!-- Contact Section -->
         <section id="contact" class="contact" aria-labelledby="contact-heading">
-            <div class="container">
-                <div class="section-header">
+        <div class="container">
+            <div class="section-header">
                     <h2 id="contact-heading">Contatti</h2>
-                    <p>Come raggiungermi e dove trovarmi</p>
-                </div>
+                <p>Come raggiungermi e dove trovarmi</p>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <address class="contact-item">
@@ -635,6 +660,156 @@
     </div>
 
     <script src="script.js"></script>
+    
+    <!-- Custom Calendar Widget Script -->
+    <script>
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        // Initialize calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+            setupTimeSlots();
+        });
+
+        function generateCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update month display
+            const monthNames = [
+                'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+                'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'
+            ];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = (firstDay.getDay() + 6) % 7; // Monday = 0
+            
+            // Get previous month's last days
+            const prevMonth = new Date(year, month, 0);
+            const prevMonthDays = prevMonth.getDate();
+            
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+            
+            // Previous month days
+            for (let i = startingDay - 1; i >= 0; i--) {
+                const day = prevMonthDays - i;
+                const dayElement = createDayElement(day, true, false);
+                calendarDays.appendChild(dayElement);
+            }
+            
+            // Current month days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const isPast = date < new Date().setHours(0, 0, 0, 0);
+                const isSunday = date.getDay() === 0; // Only Sunday is disabled
+                const isDisabled = isPast || isSunday;
+                
+                const dayElement = createDayElement(day, false, isDisabled);
+                if (!isDisabled) {
+                    dayElement.addEventListener('click', () => selectDate(day, month, year));
+                }
+                calendarDays.appendChild(dayElement);
+            }
+            
+            // Next month days
+            const totalCells = calendarDays.children.length;
+            const remainingCells = 42 - totalCells; // 6 weeks * 7 days
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = createDayElement(day, true, false);
+                calendarDays.appendChild(dayElement);
+            }
+        }
+
+        function createDayElement(day, isOtherMonth, isDisabled) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
+            
+            if (isOtherMonth) {
+                dayElement.classList.add('other-month');
+            }
+            if (isDisabled) {
+                dayElement.classList.add('disabled');
+            }
+            
+            return dayElement;
+        }
+
+        function selectDate(day, month, year) {
+            // Remove previous selection
+            document.querySelectorAll('.calendar-day.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Add selection to clicked day
+            event.target.classList.add('selected');
+            
+            // Store selected date
+            selectedDate = new Date(year, month, day);
+            const formattedDate = selectedDate.toISOString().split('T')[0];
+            document.getElementById('selectedDate').value = formattedDate;
+            
+            // Update time slots based on day of week
+            updateTimeSlots(selectedDate);
+        }
+
+        function updateTimeSlots(date) {
+            const isSaturday = date.getDay() === 6; // Saturday = 6
+            const timeSlots = document.querySelectorAll('.time-slot');
+            
+            timeSlots.forEach(slot => {
+                const time = slot.dataset.time;
+                slot.classList.remove('disabled');
+                
+                // For Saturday, disable afternoon slots (14:00 and later)
+                // 12:00 is available on Saturday since it's before 13:00
+                if (isSaturday && (time >= '14:00')) {
+                    slot.classList.add('disabled');
+                }
+            });
+        }
+
+        function setupTimeSlots() {
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.addEventListener('click', function() {
+                    if (this.classList.contains('disabled')) return;
+                    
+                    // Remove previous selection
+                    document.querySelectorAll('.time-slot.selected').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked slot
+                    this.classList.add('selected');
+                    
+                    // Store selected time
+                    selectedTime = this.dataset.time;
+                    document.getElementById('selectedTime').value = selectedTime;
+                });
+            });
+        }
+
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            generateCalendar();
+        }
+
+        // Form validation
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            if (!selectedDate || !selectedTime) {
+                e.preventDefault();
+                alert('Per favore seleziona una data e un orario.');
+                return false;
+            }
+        });
+    </script>
     
     <!-- Cookie Consent Script -->
     <script>
