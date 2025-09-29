@@ -65,6 +65,16 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
+        
+        // Set default consent state (denied until user accepts)
+        gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted'
+        });
+        
         gtag('js', new Date());
         gtag('config', 'G-QB7378CYP0', {
             // Enhanced measurement for better insights
@@ -582,6 +592,146 @@
         </div>
     </footer>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent" style="display: none;">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4>🍪 Utilizzo dei Cookie</h4>
+                <p>Questo sito utilizza cookie per migliorare la tua esperienza di navigazione e per analizzare il traffico del sito. 
+                Continuando a navigare, accetti l'utilizzo dei cookie. 
+                <a href="#privacy-policy" onclick="showPrivacyPolicy()">Leggi la Privacy Policy</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button onclick="acceptAllCookies()" class="btn-accept">Accetta Tutti</button>
+                <button onclick="acceptEssentialCookies()" class="btn-essential">Solo Essenziali</button>
+                <button onclick="showCookieSettings()" class="btn-settings">Impostazioni</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettings" class="cookie-modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Impostazioni Cookie</h3>
+            <div class="cookie-option">
+                <label>
+                    <input type="checkbox" id="essentialCookies" checked disabled>
+                    <strong>Cookie Essenziali</strong> (Sempre attivi)
+                    <p>Necessari per il funzionamento del sito</p>
+                </label>
+            </div>
+            <div class="cookie-option">
+                <label>
+                    <input type="checkbox" id="analyticsCookies">
+                    <strong>Cookie Analitici</strong>
+                    <p>Google Analytics per analizzare l'utilizzo del sito</p>
+                </label>
+            </div>
+            <div class="cookie-buttons">
+                <button onclick="saveCookieSettings()" class="btn-save">Salva Preferenze</button>
+                <button onclick="closeCookieSettings()" class="btn-cancel">Annulla</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    
+    <!-- Cookie Consent Script -->
+    <script>
+        // Cookie consent management
+        function showCookieConsent() {
+            if (!getCookie('cookieConsent')) {
+                document.getElementById('cookieConsent').style.display = 'block';
+            }
+        }
+
+        function acceptAllCookies() {
+            setCookie('cookieConsent', 'all', 365);
+            setCookie('analyticsConsent', 'true', 365);
+            hideCookieConsent();
+            // Enable Google Analytics
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+        }
+
+        function acceptEssentialCookies() {
+            setCookie('cookieConsent', 'essential', 365);
+            setCookie('analyticsConsent', 'false', 365);
+            hideCookieConsent();
+            // Disable Google Analytics
+            gtag('consent', 'update', {
+                'analytics_storage': 'denied'
+            });
+        }
+
+        function showCookieSettings() {
+            document.getElementById('cookieSettings').style.display = 'block';
+        }
+
+        function closeCookieSettings() {
+            document.getElementById('cookieSettings').style.display = 'none';
+        }
+
+        function saveCookieSettings() {
+            const analyticsConsent = document.getElementById('analyticsCookies').checked;
+            setCookie('cookieConsent', 'custom', 365);
+            setCookie('analyticsConsent', analyticsConsent.toString(), 365);
+            
+            // Update Google Analytics consent
+            gtag('consent', 'update', {
+                'analytics_storage': analyticsConsent ? 'granted' : 'denied'
+            });
+            
+            hideCookieConsent();
+            closeCookieSettings();
+        }
+
+        function hideCookieConsent() {
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        function showPrivacyPolicy() {
+            // This would show your privacy policy
+            alert('Privacy Policy - In fase di implementazione');
+        }
+
+        // Cookie utility functions
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+
+        // Initialize cookie consent
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show cookie consent if not already accepted
+            setTimeout(showCookieConsent, 1000);
+            
+            // Set initial Google Analytics consent
+            const analyticsConsent = getCookie('analyticsConsent');
+            if (analyticsConsent === 'true') {
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted'
+                });
+            } else {
+                gtag('consent', 'update', {
+                    'analytics_storage': 'denied'
+                });
+            }
+        });
+    </script>
 </body>
 </html>
