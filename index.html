@@ -668,7 +668,7 @@
     <script>
         // Google Calendar API Configuration
         const GOOGLE_CALENDAR_CONFIG = {
-            API_KEY: 'YOUR_ACTUAL_API_KEY_HERE', // Replace with your actual API key from Google Cloud Console
+            API_KEY: 'AIzaSyB1BgRhzGWvqo0M4wuhv8E3Dz2O571tDy0', // Your Google Cloud Console API key
             CALENDAR_ID: 'lorenadipasquale88@gmail.com', // Or use specific calendar ID like 'abc123@group.calendar.google.com'
             CLIENT_ID: 'YOUR_CLIENT_ID', // OAuth 2.0 Client ID (optional)
             DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
@@ -685,32 +685,80 @@
         document.addEventListener('DOMContentLoaded', function() {
             generateCalendar();
             setupTimeSlots();
-            initializeGoogleCalendar();
+            
+            // Wait a bit for Google API to load, then initialize
+            setTimeout(() => {
+                initializeGoogleCalendar();
+            }, 1000);
         });
 
         // Google Calendar API Functions
         function initializeGoogleCalendar() {
-            // Load Google API
-            gapi.load('client', initializeGapiClient);
+            // Check if gapi is available
+            if (typeof gapi === 'undefined') {
+                console.error('Google Calendar API not available');
+                return;
+            }
+            
+            // Load Google API client
+            gapi.load('client', {
+                callback: function() {
+                    initializeGapiClient();
+                },
+                onerror: function(error) {
+                    console.error('Error loading Google Calendar API:', error);
+                },
+                timeout: 10000 // 10 second timeout
+            });
         }
 
         async function initializeGapiClient() {
             try {
+                // Check if API key is properly set
+                if (GOOGLE_CALENDAR_CONFIG.API_KEY === 'YOUR_ACTUAL_API_KEY_HERE') {
+                    console.warn('Google Calendar API key not configured');
+                    gapiLoaded = false;
+                    return;
+                }
+
                 await gapi.client.init({
                     apiKey: GOOGLE_CALENDAR_CONFIG.API_KEY,
                     discoveryDocs: [GOOGLE_CALENDAR_CONFIG.DISCOVERY_DOC],
                 });
                 gapiLoaded = true;
                 console.log('Google Calendar API loaded successfully');
+                
+                // Test API connection
+                await testCalendarConnection();
             } catch (error) {
-                console.log('Error loading Google Calendar API:', error);
+                console.error('Error loading Google Calendar API:', error);
+                gapiLoaded = false;
                 // Fallback to basic calendar without API integration
+            }
+        }
+
+        async function testCalendarConnection() {
+            try {
+                const response = await gapi.client.calendar.calendarList.list();
+                
+                // Check if our target calendar is accessible
+                const targetCalendar = response.result.items?.find(cal => 
+                    cal.id === GOOGLE_CALENDAR_CONFIG.CALENDAR_ID || 
+                    cal.id.includes('lorenadipasquale88')
+                );
+                
+                if (targetCalendar) {
+                    console.log('Calendar connection successful:', targetCalendar.summary);
+                } else {
+                    console.warn('Target calendar not accessible - using default availability');
+                }
+            } catch (error) {
+                console.warn('Calendar connection failed - using default availability:', error.message);
             }
         }
 
         async function checkAvailability(date) {
             if (!gapiLoaded) {
-                console.log('Google Calendar API not loaded, using default slots');
                 return getDefaultAvailableSlots(date);
             }
 
@@ -721,9 +769,6 @@
                 const endOfDay = new Date(date);
                 endOfDay.setHours(23, 59, 59, 999);
 
-                console.log('Checking availability for:', date.toDateString());
-                console.log('Calendar ID:', GOOGLE_CALENDAR_CONFIG.CALENDAR_ID);
-
                 const response = await gapi.client.calendar.events.list({
                     calendarId: GOOGLE_CALENDAR_CONFIG.CALENDAR_ID,
                     timeMin: startOfDay.toISOString(),
@@ -733,18 +778,14 @@
                 });
 
                 const events = response.result.items || [];
-                console.log('Found events:', events.length);
-                
                 const busySlots = events.map(event => {
                     const start = new Date(event.start.dateTime || event.start.date);
                     return start.getHours() + ':' + String(start.getMinutes()).padStart(2, '0');
                 });
 
-                console.log('Busy slots:', busySlots);
                 return getAvailableSlots(date, busySlots);
             } catch (error) {
-                console.error('Error checking availability:', error);
-                console.error('Error details:', error.message);
+                console.warn('Calendar availability check failed, using default slots:', error.message);
                 // Fallback to default slots
                 return getDefaultAvailableSlots(date);
             }
@@ -932,6 +973,7 @@
             currentDate.setMonth(currentDate.getMonth() + direction);
             generateCalendar();
         }
+
 
         // Form validation
         document.getElementById('appointmentForm').addEventListener('submit', function(e) {
