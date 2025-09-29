@@ -61,6 +61,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     
+    <!-- Google Calendar API -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QB7378CYP0"></script>
     <script>
@@ -663,15 +666,107 @@
     
     <!-- Custom Calendar Widget Script -->
     <script>
+        // Google Calendar API Configuration
+        const GOOGLE_CALENDAR_CONFIG = {
+            API_KEY: 'AIzaSyB1BgRhzGWvqo0M4wuhv8E3Dz2O571tDy0',
+            CALENDAR_ID: 'lorenadipasquale88@gmail.com',
+            CLIENT_ID: 'YOUR_CLIENT_ID', // OAuth 2.0 Client ID (optional)
+            DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+            SCOPES: 'https://www.googleapis.com/auth/calendar.readonly'
+        };
+
         let currentDate = new Date();
         let selectedDate = null;
         let selectedTime = null;
+        let gapiLoaded = false;
+        let gisLoaded = false;
 
         // Initialize calendar
         document.addEventListener('DOMContentLoaded', function() {
             generateCalendar();
             setupTimeSlots();
+            initializeGoogleCalendar();
         });
+
+        // Google Calendar API Functions
+        function initializeGoogleCalendar() {
+            // Load Google API
+            gapi.load('client', initializeGapiClient);
+        }
+
+        async function initializeGapiClient() {
+            try {
+                await gapi.client.init({
+                    apiKey: GOOGLE_CALENDAR_CONFIG.API_KEY,
+                    discoveryDocs: [GOOGLE_CALENDAR_CONFIG.DISCOVERY_DOC],
+                });
+                gapiLoaded = true;
+                console.log('Google Calendar API loaded successfully');
+            } catch (error) {
+                console.log('Error loading Google Calendar API:', error);
+                // Fallback to basic calendar without API integration
+            }
+        }
+
+        async function checkAvailability(date) {
+            if (!gapiLoaded) {
+                // If API not loaded, return all slots as available
+                return getDefaultAvailableSlots(date);
+            }
+
+            try {
+                const startOfDay = new Date(date);
+                startOfDay.setHours(0, 0, 0, 0);
+                
+                const endOfDay = new Date(date);
+                endOfDay.setHours(23, 59, 59, 999);
+
+                const response = await gapi.client.calendar.events.list({
+                    calendarId: GOOGLE_CALENDAR_CONFIG.CALENDAR_ID,
+                    timeMin: startOfDay.toISOString(),
+                    timeMax: endOfDay.toISOString(),
+                    singleEvents: true,
+                    orderBy: 'startTime'
+                });
+
+                const events = response.result.items || [];
+                const busySlots = events.map(event => {
+                    const start = new Date(event.start.dateTime || event.start.date);
+                    return start.getHours() + ':' + String(start.getMinutes()).padStart(2, '0');
+                });
+
+                return getAvailableSlots(date, busySlots);
+            } catch (error) {
+                console.log('Error checking availability:', error);
+                // Fallback to default slots
+                return getDefaultAvailableSlots(date);
+            }
+        }
+
+        function getDefaultAvailableSlots(date) {
+            const isSaturday = date.getDay() === 6;
+            const allSlots = ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+            
+            if (isSaturday) {
+                return allSlots.filter(slot => slot < '14:00');
+            }
+            return allSlots;
+        }
+
+        function getAvailableSlots(date, busySlots) {
+            const isSaturday = date.getDay() === 6;
+            const allSlots = ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+            
+            // Filter out busy slots
+            const availableSlots = allSlots.filter(slot => !busySlots.includes(slot));
+            
+            // For Saturday, only show morning slots
+            if (isSaturday) {
+                return availableSlots.filter(slot => slot < '14:00');
+            }
+            
+            return availableSlots;
+        }
 
         function generateCalendar() {
             const year = currentDate.getFullYear();
@@ -742,7 +837,7 @@
             return dayElement;
         }
 
-        function selectDate(day, month, year) {
+        async function selectDate(day, month, year) {
             // Remove previous selection
             document.querySelectorAll('.calendar-day.selected').forEach(el => {
                 el.classList.remove('selected');
@@ -756,8 +851,38 @@
             const formattedDate = selectedDate.toISOString().split('T')[0];
             document.getElementById('selectedDate').value = formattedDate;
             
-            // Update time slots based on day of week
-            updateTimeSlots(selectedDate);
+            // Show loading state
+            showTimeSlotsLoading();
+            
+            // Check real availability from Google Calendar
+            const availableSlots = await checkAvailability(selectedDate);
+            
+            // Update time slots with real availability
+            updateTimeSlotsWithAvailability(availableSlots);
+        }
+
+        function showTimeSlotsLoading() {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            timeSlots.forEach(slot => {
+                slot.classList.add('loading');
+                slot.disabled = true;
+            });
+        }
+
+        function updateTimeSlotsWithAvailability(availableSlots) {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            
+            timeSlots.forEach(slot => {
+                const time = slot.dataset.time;
+                slot.classList.remove('loading', 'disabled', 'selected');
+                slot.disabled = false;
+                
+                // Check if this time slot is available
+                if (!availableSlots.includes(time)) {
+                    slot.classList.add('disabled');
+                    slot.disabled = true;
+                }
+            });
         }
 
         function updateTimeSlots(date) {
@@ -809,6 +934,30 @@
                 return false;
             }
         });
+
+        // Google Calendar API Setup Instructions
+        /*
+        SETUP INSTRUCTIONS:
+        
+        1. Go to Google Cloud Console (https://console.cloud.google.com/)
+        2. Create a new project or select existing one
+        3. Enable Google Calendar API
+        4. Create credentials (API Key)
+        5. Get your Calendar ID from Google Calendar settings
+        6. Replace the placeholder values in GOOGLE_CALENDAR_CONFIG:
+           - API_KEY: Your Google API Key
+           - CALENDAR_ID: Your Google Calendar ID (usually your email)
+           - CLIENT_ID: Your OAuth 2.0 Client ID (optional for read-only)
+        
+        CALENDAR ID FORMATS:
+        - Primary calendar: your-email@gmail.com
+        - Secondary calendar: calendar-id@group.calendar.google.com
+        
+        SECURITY NOTES:
+        - Restrict API key to your domain
+        - Use read-only scope for security
+        - Consider using OAuth for production
+        */
     </script>
     
     <!-- Cookie Consent Script -->
