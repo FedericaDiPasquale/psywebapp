@@ -668,8 +668,8 @@
     <script>
         // Google Calendar API Configuration
         const GOOGLE_CALENDAR_CONFIG = {
-            API_KEY: 'AIzaSyB1BgRhzGWvqo0M4wuhv8E3Dz2O571tDy0',
-            CALENDAR_ID: 'lorenadipasquale88@gmail.com',
+            API_KEY: 'YOUR_ACTUAL_API_KEY_HERE', // Replace with your actual API key from Google Cloud Console
+            CALENDAR_ID: 'lorenadipasquale88@gmail.com', // Or use specific calendar ID like 'abc123@group.calendar.google.com'
             CLIENT_ID: 'YOUR_CLIENT_ID', // OAuth 2.0 Client ID (optional)
             DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
             SCOPES: 'https://www.googleapis.com/auth/calendar.readonly'
@@ -710,7 +710,7 @@
 
         async function checkAvailability(date) {
             if (!gapiLoaded) {
-                // If API not loaded, return all slots as available
+                console.log('Google Calendar API not loaded, using default slots');
                 return getDefaultAvailableSlots(date);
             }
 
@@ -721,6 +721,9 @@
                 const endOfDay = new Date(date);
                 endOfDay.setHours(23, 59, 59, 999);
 
+                console.log('Checking availability for:', date.toDateString());
+                console.log('Calendar ID:', GOOGLE_CALENDAR_CONFIG.CALENDAR_ID);
+
                 const response = await gapi.client.calendar.events.list({
                     calendarId: GOOGLE_CALENDAR_CONFIG.CALENDAR_ID,
                     timeMin: startOfDay.toISOString(),
@@ -730,14 +733,18 @@
                 });
 
                 const events = response.result.items || [];
+                console.log('Found events:', events.length);
+                
                 const busySlots = events.map(event => {
                     const start = new Date(event.start.dateTime || event.start.date);
                     return start.getHours() + ':' + String(start.getMinutes()).padStart(2, '0');
                 });
 
+                console.log('Busy slots:', busySlots);
                 return getAvailableSlots(date, busySlots);
             } catch (error) {
-                console.log('Error checking availability:', error);
+                console.error('Error checking availability:', error);
+                console.error('Error details:', error.message);
                 // Fallback to default slots
                 return getDefaultAvailableSlots(date);
             }
