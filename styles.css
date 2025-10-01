@@ -674,6 +674,117 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.05);
 }
 
+/* Read More Button Styles */
+.read-more-btn {
+    background: linear-gradient(135deg, #729474, #5a7a5c);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.read-more-btn:hover {
+    background: linear-gradient(135deg, #5a7a5c, #4a6b4c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(114, 148, 116, 0.3);
+}
+
+.read-more-btn:active {
+    transform: translateY(0);
+}
+
+.read-more-btn i {
+    transition: transform 0.3s ease;
+}
+
+/* Center only the read more button */
+.about-text {
+    text-align: left;
+}
+
+.read-more-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.about-expanded {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Desktop Hero Enhancements */
+@media (min-width: 1024px) {
+    .hero {
+        padding: 120px 0 80px;
+        min-height: 90vh;
+    }
+    
+    .hero-container {
+        max-width: 1200px;
+        gap: 4rem;
+    }
+    
+    .hero-content {
+        max-width: 600px;
+    }
+    
+    .hero-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1.2rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+    }
+    
+    .hero-buttons {
+        gap: 1.5rem;
+    }
+    
+    .btn {
+        padding: 15px 35px;
+        font-size: 1.1rem;
+    }
+    
+    .hero-photo {
+        width: 350px;
+        height: 350px;
+    }
+}
+
 /* Section Headers */
 .section-header {
     text-align: center;

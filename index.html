@@ -282,8 +282,8 @@
         <section id="home" class="hero" role="banner">
         <div class="hero-container">
             <div class="hero-content">
-                <h1>Psicologa Ragusa<br>Dott.ssa Di Pasquale Lorena</h1>
-                <p class="hero-subtitle">Psicoterapeuta Ragusa • Psicologa Online</p>
+                <h1>Dott.ssa<br>Di Pasquale Lorena</h1>
+                <p class="hero-subtitle">Psicologa • Psicoterapeuta</p>
                 <p class="hero-tagline">Terapia Online e Presenziale a Ragusa</p>
                 <p class="hero-description">
                     Psicologa e Psicoterapeuta specializzata a Ragusa. Offro terapia online e presenziale 
@@ -319,19 +319,27 @@
                         Dopo la laurea in Psicologia Clinica e di Comunità presso l'Università degli Studi di Torino e 
                         l'abilitazione alla professione, ho maturato un percorso formativo e professionale ricco e variegato.
                     </p>
-                    <p>
-                        Ho lavorato con adulti, adolescenti, coppie e gruppi, sviluppando competenze cliniche e psicoterapeutiche 
-                        in diversi contesti. Parallelamente, l'esperienza in ambito educativo, 
-                        comunitario e salesiano, attraverso attività di volontariato e servizio civile, ha arricchito la mia 
-                        prospettiva clinica con una forte attenzione alla prevenzione e al sostegno relazionale.
-                    </p>
-                    <p>
-                        Mi caratterizzo per uno stile empatico e collaborativo, orientato alla costruzione di un'alleanza 
-                        terapeutica solida e al potenziamento delle risorse personali del paziente. Credo profondamente nella 
-                        capacità di ogni individuo di trasformare le proprie difficoltà in opportunità di crescita, e nel 
-                        valore del lavoro in équipe multidisciplinare per promuovere percorsi di cambiamento rispettosi della 
-                        complessità della persona e del suo contesto sociale.
-                    </p>
+                    
+                    <div id="about-expanded" class="about-expanded" style="display: none;">
+                        <p>
+                            Ho lavorato con adulti, adolescenti, coppie e gruppi, sviluppando competenze cliniche e psicoterapeutiche 
+                            in diversi contesti. Parallelamente, l'esperienza in ambito educativo, 
+                            comunitario e salesiano, attraverso attività di volontariato e servizio civile, ha arricchito la mia 
+                            prospettiva clinica con una forte attenzione alla prevenzione e al sostegno relazionale.
+                        </p>
+                        <p>
+                            Mi caratterizzo per uno stile empatico e collaborativo, orientato alla costruzione di un'alleanza 
+                            terapeutica solida e al potenziamento delle risorse personali del paziente. Credo profondamente nella 
+                            capacità di ogni individuo di trasformare le proprie difficoltà in opportunità di crescita, e nel 
+                            valore del lavoro in équipe multidisciplinare per promuovere percorsi di cambiamento rispettosi della 
+                            complessità della persona e del suo contesto sociale.
+                        </p>
+                    </div>
+                    
+                    <button id="read-more-btn" class="read-more-btn" onclick="toggleAboutContent()">
+                        <span id="read-more-text">Leggi di più</span>
+                        <i id="read-more-icon" class="fas fa-chevron-down"></i>
+                    </button>
                     <div class="credentials">
                         <div class="credential">
                             <i class="fas fa-graduation-cap" aria-hidden="true"></i>
@@ -1086,6 +1094,29 @@
         function showPrivacyPolicy() {
             // This would show your privacy policy
             alert('Privacy Policy - In fase di implementazione');
+        }
+
+        // Toggle About Content Function
+        function toggleAboutContent() {
+            const expandedContent = document.getElementById('about-expanded');
+            const readMoreText = document.getElementById('read-more-text');
+            const readMoreIcon = document.getElementById('read-more-icon');
+            
+            if (expandedContent.style.display === 'none') {
+                expandedContent.style.display = 'block';
+                readMoreText.textContent = 'Leggi di meno';
+                readMoreIcon.className = 'fas fa-chevron-up';
+                
+                // Smooth scroll to expanded content
+                expandedContent.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest' 
+                });
+            } else {
+                expandedContent.style.display = 'none';
+                readMoreText.textContent = 'Leggi di più';
+                readMoreIcon.className = 'fas fa-chevron-down';
+            }
         }
 
         // Cookie utility functions
