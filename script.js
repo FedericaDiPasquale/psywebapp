@@ -234,7 +234,7 @@ function showNotification(message, type = 'info') {
             notification.style.background = '#ed8936';
             break;
         default:
-            notification.style.background = '#2c5aa0';
+            notification.style.background = '#729474';
     }
     
     document.body.appendChild(notification);
