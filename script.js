@@ -13,12 +13,21 @@ document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', 
     navMenu.classList.remove('active');
 }));
 
-// Smooth scrolling for navigation links
+// Smooth scrolling for all anchor links (navigation and buttons)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        
         if (target) {
+            // Close mobile menu if open
+            if (navMenu && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+            
+            // Smooth scroll to target
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
@@ -159,14 +168,17 @@ function formatDate(dateString) {
 }
 
 // Set minimum date to today
-const dateInput = document.getElementById('date');
-const today = new Date().toISOString().split('T')[0];
-dateInput.setAttribute('min', today);
+const dateInput = document.getElementById('selectedDate');
+if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+}
 
 // Update available times based on selected date
-dateInput.addEventListener('change', function() {
-    const selectedDate = new Date(this.value);
-    const dayOfWeek = selectedDate.getDay();
+if (dateInput) {
+    dateInput.addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const dayOfWeek = selectedDate.getDay();
     const timeSelect = document.getElementById('time');
     
     // Clear existing options
@@ -198,7 +210,8 @@ dateInput.addEventListener('change', function() {
         option.disabled = true;
         timeSelect.appendChild(option);
     }
-});
+    });
+}
 
 // Notification system
 function showNotification(message, type = 'info') {
@@ -353,9 +366,154 @@ function removeLoadingState(element) {
     element.style.opacity = '1';
 }
 
+// Toggle About Content (Leggi di più button)
+function toggleAboutContent() {
+    const aboutContent = document.querySelector('.about-content');
+    const readMoreBtn = document.getElementById('read-more-btn');
+    const readMoreText = document.getElementById('read-more-text');
+    const readMoreIcon = document.getElementById('read-more-icon');
+    
+    if (aboutContent && readMoreBtn && readMoreText && readMoreIcon) {
+        aboutContent.classList.toggle('expanded');
+        
+        if (aboutContent.classList.contains('expanded')) {
+            readMoreText.textContent = 'Leggi di meno';
+            readMoreIcon.classList.remove('fa-chevron-down');
+            readMoreIcon.classList.add('fa-chevron-up');
+        } else {
+            readMoreText.textContent = 'Leggi di più';
+            readMoreIcon.classList.remove('fa-chevron-up');
+            readMoreIcon.classList.add('fa-chevron-down');
+        }
+    }
+}
+
+// Cookie Management Functions
+function showCookieConsent() {
+    const consent = localStorage.getItem('cookieConsent');
+    if (!consent) {
+        document.getElementById('cookieConsent').style.display = 'block';
+    } else {
+        loadCookiePreferences();
+    }
+}
+
+function acceptAllCookies() {
+    localStorage.setItem('cookieConsent', 'all');
+    localStorage.setItem('analyticsCookies', 'true');
+    localStorage.setItem('calendlyCookies', 'true');
+    hideCookieConsent();
+    loadCookiePreferences();
+}
+
+function acceptEssentialCookies() {
+    localStorage.setItem('cookieConsent', 'essential');
+    localStorage.setItem('analyticsCookies', 'false');
+    localStorage.setItem('calendlyCookies', 'false');
+    hideCookieConsent();
+    loadCookiePreferences();
+}
+
+function showCookieSettings() {
+    document.getElementById('cookieSettings').style.display = 'flex';
+    loadCurrentCookieSettings();
+}
+
+function closeCookieSettings() {
+    document.getElementById('cookieSettings').style.display = 'none';
+}
+
+function saveCookieSettings() {
+    const analytics = document.getElementById('analyticsCookies').checked;
+    const calendly = document.getElementById('calendlyCookies').checked;
+    
+    localStorage.setItem('cookieConsent', 'custom');
+    localStorage.setItem('analyticsCookies', analytics.toString());
+    localStorage.setItem('calendlyCookies', calendly.toString());
+    
+    hideCookieConsent();
+    closeCookieSettings();
+    loadCookiePreferences();
+}
+
+function hideCookieConsent() {
+    document.getElementById('cookieConsent').style.display = 'none';
+}
+
+function loadCurrentCookieSettings() {
+    const analytics = localStorage.getItem('analyticsCookies') === 'true';
+    const calendly = localStorage.getItem('calendlyCookies') === 'true';
+    
+    document.getElementById('analyticsCookies').checked = analytics;
+    document.getElementById('calendlyCookies').checked = calendly;
+}
+
+function loadCookiePreferences() {
+    const analytics = localStorage.getItem('analyticsCookies') === 'true';
+    const calendly = localStorage.getItem('calendlyCookies') === 'true';
+    
+    // Load Google Analytics if accepted
+    if (analytics) {
+        loadGoogleAnalytics();
+    }
+    
+    // Load Calendly if accepted
+    if (calendly) {
+        loadCalendly();
+    } else {
+        hideCalendlyWidgets();
+    }
+}
+
+function loadGoogleAnalytics() {
+    // Google Analytics loading code
+    if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+        });
+    }
+}
+
+function loadCalendly() {
+    // Calendly is already loaded in HTML, just show the widgets
+    const widgets = document.querySelectorAll('.calendly-inline-widget');
+    widgets.forEach(widget => {
+        widget.style.display = 'block';
+    });
+}
+
+function hideCalendlyWidgets() {
+    // Hide Calendly widgets if not accepted
+    const widgets = document.querySelectorAll('.calendly-inline-widget');
+    widgets.forEach(widget => {
+        widget.style.display = 'none';
+    });
+    
+    // Show message instead
+    const bookingSection = document.querySelector('.booking-main');
+    const contactFormSection = document.querySelector('.contact-form-container');
+    
+    if (bookingSection && !bookingSection.querySelector('.cookie-message')) {
+        const message = document.createElement('div');
+        message.className = 'cookie-message';
+        message.innerHTML = '<p>Per prenotare un appuntamento, accetta i cookie Calendly nelle impostazioni.</p>';
+        bookingSection.appendChild(message);
+    }
+    
+    if (contactFormSection && !contactFormSection.querySelector('.cookie-message')) {
+        const message = document.createElement('div');
+        message.className = 'cookie-message';
+        message.innerHTML = '<p>Per inviare un messaggio, accetta i cookie Calendly nelle impostazioni.</p>';
+        contactFormSection.appendChild(message);
+    }
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Dr. Di Pasquale Lorena - Psicoterapeuta website loaded successfully');
+    
+    // Show cookie consent
+    showCookieConsent();
     
     // Add any initialization code here
     const currentYear = new Date().getFullYear();

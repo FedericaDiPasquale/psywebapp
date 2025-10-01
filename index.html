@@ -75,8 +75,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     
-    <!-- Google Calendar API -->
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!-- Calendly Widget -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QB7378CYP0"></script>
@@ -266,6 +267,9 @@
                     <a href="#booking" class="nav-link">Prenota</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#contact-form" class="nav-link">Invia un messaggio</a>
+                </li>
+                <li class="nav-item">
                     <a href="#contact" class="nav-link">Contatti</a>
                 </li>
             </ul>
@@ -321,19 +325,19 @@
                     </p>
                     
                     <div id="about-expanded" class="about-expanded" style="display: none;">
-                        <p>
-                            Ho lavorato con adulti, adolescenti, coppie e gruppi, sviluppando competenze cliniche e psicoterapeutiche 
-                            in diversi contesti. Parallelamente, l'esperienza in ambito educativo, 
-                            comunitario e salesiano, attraverso attività di volontariato e servizio civile, ha arricchito la mia 
-                            prospettiva clinica con una forte attenzione alla prevenzione e al sostegno relazionale.
-                        </p>
-                        <p>
-                            Mi caratterizzo per uno stile empatico e collaborativo, orientato alla costruzione di un'alleanza 
-                            terapeutica solida e al potenziamento delle risorse personali del paziente. Credo profondamente nella 
-                            capacità di ogni individuo di trasformare le proprie difficoltà in opportunità di crescita, e nel 
-                            valore del lavoro in équipe multidisciplinare per promuovere percorsi di cambiamento rispettosi della 
-                            complessità della persona e del suo contesto sociale.
-                        </p>
+                    <p>
+                        Ho lavorato con adulti, adolescenti, coppie e gruppi, sviluppando competenze cliniche e psicoterapeutiche 
+                        in diversi contesti. Parallelamente, l'esperienza in ambito educativo, 
+                        comunitario e salesiano, attraverso attività di volontariato e servizio civile, ha arricchito la mia 
+                        prospettiva clinica con una forte attenzione alla prevenzione e al sostegno relazionale.
+                    </p>
+                    <p>
+                        Mi caratterizzo per uno stile empatico e collaborativo, orientato alla costruzione di un'alleanza 
+                        terapeutica solida e al potenziamento delle risorse personali del paziente. Credo profondamente nella 
+                        capacità di ogni individuo di trasformare le proprie difficoltà in opportunità di crescita, e nel 
+                        valore del lavoro in équipe multidisciplinare per promuovere percorsi di cambiamento rispettosi della 
+                        complessità della persona e del suo contesto sociale.
+                    </p>
                     </div>
                     
                     <button id="read-more-btn" class="read-more-btn" onclick="toggleAboutContent()">
@@ -439,83 +443,11 @@
                 <p>Scegli il giorno e l'orario più comodo per te</p>
             </div>
             <div class="booking-container">
-                <div class="booking-form">
-                    <form id="appointmentForm" action="https://formspree.io/f/xnngjrkq" method="POST">
-                        <div class="form-group">
-                            <label for="name">Nome e Cognome *</label>
-                            <input type="text" id="name" name="name" required>
+                <div class="booking-main">
+                    <!-- Calendly Widget -->
+                    <div class="calendly-inline-widget" data-url="https://calendly.com/lorenadipasquale88/new-meeting?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=729474&locale=it-IT" style="width:100%;height:700px;"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="phone">Telefono *</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="service">Tipo di Consultazione *</label>
-                                <select id="service" name="service" required>
-                                    <option value="">Seleziona un servizio</option>
-                                    <option value="support">Sostegno Psicologico</option>
-                                    <option value="diagnostic">Consultazione Psicodiagnostica</option>
-                                    <option value="psychotherapy">Psicoterapia Individuale Adulti e Adolescenti</option>
-                                    <option value="consultation">Prima Consultazione</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Data e Orario Preferiti *</label>
-                            <div class="calendar-widget">
-                                <div class="calendar-container">
-                                    <div class="calendar-header">
-                                        <button type="button" class="calendar-nav" onclick="changeMonth(-1)">‹</button>
-                                        <h4 id="currentMonth"></h4>
-                                        <button type="button" class="calendar-nav" onclick="changeMonth(1)">›</button>
-                                    </div>
-                                    <div class="calendar-grid">
-                                        <div class="calendar-weekdays">
-                                            <div>Lun</div>
-                                            <div>Mar</div>
-                                            <div>Mer</div>
-                                            <div>Gio</div>
-                                            <div>Ven</div>
-                                            <div>Sab</div>
-                                            <div>Dom</div>
-                                        </div>
-                                        <div id="calendarDays" class="calendar-days"></div>
-                                    </div>
-                                </div>
-                                <div class="time-selection">
-                                    <h5>Orari Disponibili</h5>
-                                    <div class="time-slots">
-                                        <button type="button" class="time-slot" data-time="09:00">09:00</button>
-                                        <button type="button" class="time-slot" data-time="10:00">10:00</button>
-                                        <button type="button" class="time-slot" data-time="11:00">11:00</button>
-                                        <button type="button" class="time-slot" data-time="12:00">12:00</button>
-                                        <button type="button" class="time-slot" data-time="14:00">14:00</button>
-                                        <button type="button" class="time-slot" data-time="15:00">15:00</button>
-                                        <button type="button" class="time-slot" data-time="16:00">16:00</button>
-                                        <button type="button" class="time-slot" data-time="17:00">17:00</button>
-                                        <button type="button" class="time-slot" data-time="18:00">18:00</button>
-                                    </div>
-                                </div>
-                        </div>
-                            <input type="hidden" id="selectedDate" name="date" required>
-                            <input type="hidden" id="selectedTime" name="time" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Messaggio (opzionale)</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Descrivi brevemente il motivo della richiesta o eventuali preferenze..."></textarea>
-                        </div>
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="privacy" name="privacy" required>
-                            <label for="privacy">Accetto il trattamento dei dati personali secondo la privacy policy *</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full" onclick="trackFormSubmission('appointment_booking')">Invia Richiesta</button>
-                    </form>
-                </div>
+                
                 <aside class="booking-info">
                     <h3>Informazioni Utili</h3>
                     <div class="info-item">
@@ -550,6 +482,20 @@
                         </div>
                     </div>
                 </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact-form" class="contact-form-section" aria-labelledby="contact-form-heading">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="contact-form-heading">Invia un Messaggio</h2>
+                <p>Hai domande? Contattami direttamente tramite il modulo qui sotto</p>
+            </div>
+            <div class="contact-form-container">
+                <!-- Calendly Contact Form Widget -->
+                <div class="calendly-inline-widget" data-url="https://calendly.com/d/cwdr-vxj-43f?hide_gdpr_banner=1&primary_color=729474&locale=it-IT" style="width:100%;height:700px;"></div>
             </div>
         </div>
     </section>
@@ -689,6 +635,13 @@
                     <p>Google Analytics per analizzare l'utilizzo del sito</p>
                 </label>
             </div>
+            <div class="cookie-option">
+                <label>
+                    <input type="checkbox" id="calendlyCookies">
+                    <strong>Cookie Calendly</strong>
+                    <p>Calendly per la prenotazione di appuntamenti e invio messaggi</p>
+                </label>
+            </div>
             <div class="cookie-buttons">
                 <button onclick="saveCookieSettings()" class="btn-save">Salva Preferenze</button>
                 <button onclick="closeCookieSettings()" class="btn-cancel">Annulla</button>
@@ -698,470 +651,14 @@
 
     <script src="script.js"></script>
     
-    <!-- Custom Calendar Widget Script -->
+    <!-- Calendly Integration Script -->
     <script>
-        // Google Calendar API Configuration
-        const GOOGLE_CALENDAR_CONFIG = {
-            API_KEY: 'AIzaSyB1BgRhzGWvqo0M4wuhv8E3Dz2O571tDy0', // Your Google Cloud Console API key
-            CALENDAR_ID: 'lorenadipasquale88@gmail.com', // Or use specific calendar ID like 'abc123@group.calendar.google.com'
-            CLIENT_ID: 'YOUR_CLIENT_ID', // OAuth 2.0 Client ID (optional)
-            DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-            SCOPES: 'https://www.googleapis.com/auth/calendar.readonly'
-        };
-
-        let currentDate = new Date();
-        let selectedDate = null;
-        let selectedTime = null;
-        let gapiLoaded = false;
-        let gisLoaded = false;
-
-        // Initialize calendar
+        // Initialize Calendly widget
         document.addEventListener('DOMContentLoaded', function() {
-            generateCalendar();
-            setupTimeSlots();
-            
-            // Wait a bit for Google API to load, then initialize
-            setTimeout(() => {
-                initializeGoogleCalendar();
-            }, 1000);
+            // Calendly widget will auto-initialize
+            console.log('✅ Calendly widget ready');
         });
 
-        // Google Calendar API Functions
-        function initializeGoogleCalendar() {
-            // Check if gapi is available
-            if (typeof gapi === 'undefined') {
-                console.error('Google Calendar API not available');
-                return;
-            }
-            
-            // Load Google API client
-            gapi.load('client', {
-                callback: function() {
-                    initializeGapiClient();
-                },
-                onerror: function(error) {
-                    console.error('Error loading Google Calendar API:', error);
-                },
-                timeout: 10000 // 10 second timeout
-            });
-        }
-
-        async function initializeGapiClient() {
-            try {
-                // Check if API key is properly set
-                if (GOOGLE_CALENDAR_CONFIG.API_KEY === 'YOUR_ACTUAL_API_KEY_HERE') {
-                    console.warn('Google Calendar API key not configured');
-                    gapiLoaded = false;
-                    return;
-                }
-
-                await gapi.client.init({
-                    apiKey: GOOGLE_CALENDAR_CONFIG.API_KEY,
-                    discoveryDocs: [GOOGLE_CALENDAR_CONFIG.DISCOVERY_DOC],
-                });
-                gapiLoaded = true;
-                console.log('Google Calendar API loaded successfully');
-                
-                // Test API connection
-                await testCalendarConnection();
-            } catch (error) {
-                console.error('Error loading Google Calendar API:', error);
-                gapiLoaded = false;
-                // Fallback to basic calendar without API integration
-            }
-        }
-
-        async function testCalendarConnection() {
-            try {
-                const response = await gapi.client.calendar.calendarList.list();
-                
-                // Check if our target calendar is accessible
-                const targetCalendar = response.result.items?.find(cal => 
-                    cal.id === GOOGLE_CALENDAR_CONFIG.CALENDAR_ID || 
-                    cal.id.includes('lorenadipasquale88')
-                );
-                
-                if (targetCalendar) {
-                    console.log('Calendar connection successful:', targetCalendar.summary);
-                } else {
-                    console.warn('Target calendar not accessible - using default availability');
-                }
-            } catch (error) {
-                console.warn('Calendar connection failed - using default availability:', error.message);
-            }
-        }
-
-        async function checkAvailability(date) {
-            if (!gapiLoaded) {
-                return getDefaultAvailableSlots(date);
-            }
-
-            try {
-                const startOfDay = new Date(date);
-                startOfDay.setHours(0, 0, 0, 0);
-                
-                const endOfDay = new Date(date);
-                endOfDay.setHours(23, 59, 59, 999);
-
-                const response = await gapi.client.calendar.events.list({
-                    calendarId: GOOGLE_CALENDAR_CONFIG.CALENDAR_ID,
-                    timeMin: startOfDay.toISOString(),
-                    timeMax: endOfDay.toISOString(),
-                    singleEvents: true,
-                    orderBy: 'startTime'
-                });
-
-                const events = response.result.items || [];
-                const busySlots = events.map(event => {
-                    const start = new Date(event.start.dateTime || event.start.date);
-                    return start.getHours() + ':' + String(start.getMinutes()).padStart(2, '0');
-                });
-
-                return getAvailableSlots(date, busySlots);
-            } catch (error) {
-                console.warn('Calendar availability check failed, using default slots:', error.message);
-                // Fallback to default slots
-                return getDefaultAvailableSlots(date);
-            }
-        }
-
-        function getDefaultAvailableSlots(date) {
-            const isSaturday = date.getDay() === 6;
-            const allSlots = ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
-            
-            if (isSaturday) {
-                return allSlots.filter(slot => slot < '14:00');
-            }
-            return allSlots;
-        }
-
-        function getAvailableSlots(date, busySlots) {
-            const isSaturday = date.getDay() === 6;
-            const allSlots = ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
-            
-            // Filter out busy slots
-            const availableSlots = allSlots.filter(slot => !busySlots.includes(slot));
-            
-            // For Saturday, only show morning slots
-            if (isSaturday) {
-                return availableSlots.filter(slot => slot < '14:00');
-            }
-            
-            return availableSlots;
-        }
-
-        function generateCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            
-            // Update month display
-            const monthNames = [
-                'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
-                'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'
-            ];
-            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
-            
-            // Get first day of month and number of days
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const daysInMonth = lastDay.getDate();
-            const startingDay = (firstDay.getDay() + 6) % 7; // Monday = 0
-            
-            // Get previous month's last days
-            const prevMonth = new Date(year, month, 0);
-            const prevMonthDays = prevMonth.getDate();
-            
-            const calendarDays = document.getElementById('calendarDays');
-            calendarDays.innerHTML = '';
-            
-            // Previous month days
-            for (let i = startingDay - 1; i >= 0; i--) {
-                const day = prevMonthDays - i;
-                const dayElement = createDayElement(day, true, false);
-                calendarDays.appendChild(dayElement);
-            }
-            
-            // Current month days
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(year, month, day);
-                const isPast = date < new Date().setHours(0, 0, 0, 0);
-                const isSunday = date.getDay() === 0; // Only Sunday is disabled
-                const isDisabled = isPast || isSunday;
-                
-                const dayElement = createDayElement(day, false, isDisabled);
-                if (!isDisabled) {
-                    dayElement.addEventListener('click', () => selectDate(day, month, year));
-                }
-                calendarDays.appendChild(dayElement);
-            }
-            
-            // Next month days
-            const totalCells = calendarDays.children.length;
-            const remainingCells = 42 - totalCells; // 6 weeks * 7 days
-            for (let day = 1; day <= remainingCells; day++) {
-                const dayElement = createDayElement(day, true, false);
-                calendarDays.appendChild(dayElement);
-            }
-        }
-
-        function createDayElement(day, isOtherMonth, isDisabled) {
-            const dayElement = document.createElement('div');
-            dayElement.className = 'calendar-day';
-            dayElement.textContent = day;
-            
-            if (isOtherMonth) {
-                dayElement.classList.add('other-month');
-            }
-            if (isDisabled) {
-                dayElement.classList.add('disabled');
-            }
-            
-            return dayElement;
-        }
-
-        async function selectDate(day, month, year) {
-            // Remove previous selection
-            document.querySelectorAll('.calendar-day.selected').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            // Add selection to clicked day
-            event.target.classList.add('selected');
-            
-            // Store selected date
-            selectedDate = new Date(year, month, day);
-            const formattedDate = selectedDate.toISOString().split('T')[0];
-            document.getElementById('selectedDate').value = formattedDate;
-            
-            // Show loading state
-            showTimeSlotsLoading();
-            
-            // Check real availability from Google Calendar
-            const availableSlots = await checkAvailability(selectedDate);
-            
-            // Update time slots with real availability
-            updateTimeSlotsWithAvailability(availableSlots);
-        }
-
-        function showTimeSlotsLoading() {
-            const timeSlots = document.querySelectorAll('.time-slot');
-            timeSlots.forEach(slot => {
-                slot.classList.add('loading');
-                slot.disabled = true;
-            });
-        }
-
-        function updateTimeSlotsWithAvailability(availableSlots) {
-            const timeSlots = document.querySelectorAll('.time-slot');
-            
-            timeSlots.forEach(slot => {
-                const time = slot.dataset.time;
-                slot.classList.remove('loading', 'disabled', 'selected');
-                slot.disabled = false;
-                
-                // Check if this time slot is available
-                if (!availableSlots.includes(time)) {
-                    slot.classList.add('disabled');
-                    slot.disabled = true;
-                }
-            });
-        }
-
-        function updateTimeSlots(date) {
-            const isSaturday = date.getDay() === 6; // Saturday = 6
-            const timeSlots = document.querySelectorAll('.time-slot');
-            
-            timeSlots.forEach(slot => {
-                const time = slot.dataset.time;
-                slot.classList.remove('disabled');
-                
-                // For Saturday, disable afternoon slots (14:00 and later)
-                // 12:00 is available on Saturday since it's before 13:00
-                if (isSaturday && (time >= '14:00')) {
-                    slot.classList.add('disabled');
-                }
-            });
-        }
-
-        function setupTimeSlots() {
-            document.querySelectorAll('.time-slot').forEach(slot => {
-                slot.addEventListener('click', function() {
-                    if (this.classList.contains('disabled')) return;
-                    
-                    // Remove previous selection
-                    document.querySelectorAll('.time-slot.selected').forEach(el => {
-                        el.classList.remove('selected');
-                    });
-                    
-                    // Add selection to clicked slot
-                    this.classList.add('selected');
-                    
-                    // Store selected time
-                    selectedTime = this.dataset.time;
-                    document.getElementById('selectedTime').value = selectedTime;
-                });
-            });
-        }
-
-        function changeMonth(direction) {
-            currentDate.setMonth(currentDate.getMonth() + direction);
-            generateCalendar();
-        }
-
-
-        // Form validation
-        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-            if (!selectedDate || !selectedTime) {
-                e.preventDefault();
-                alert('Per favore seleziona una data e un orario.');
-                return false;
-            }
-        });
-
-        // Google Calendar API Setup Instructions
-        /*
-        SETUP INSTRUCTIONS:
-        
-        1. Go to Google Cloud Console (https://console.cloud.google.com/)
-        2. Create a new project or select existing one
-        3. Enable Google Calendar API
-        4. Create credentials (API Key)
-        5. Get your Calendar ID from Google Calendar settings
-        6. Replace the placeholder values in GOOGLE_CALENDAR_CONFIG:
-           - API_KEY: Your Google API Key
-           - CALENDAR_ID: Your Google Calendar ID (usually your email)
-           - CLIENT_ID: Your OAuth 2.0 Client ID (optional for read-only)
-        
-        CALENDAR ID FORMATS:
-        - Primary calendar: your-email@gmail.com
-        - Secondary calendar: calendar-id@group.calendar.google.com
-        
-        SECURITY NOTES:
-        - Restrict API key to your domain
-        - Use read-only scope for security
-        - Consider using OAuth for production
-        */
-    </script>
-    
-    <!-- Cookie Consent Script -->
-    <script>
-        // Cookie consent management
-        function showCookieConsent() {
-            if (!getCookie('cookieConsent')) {
-                document.getElementById('cookieConsent').style.display = 'block';
-            }
-        }
-
-        function acceptAllCookies() {
-            setCookie('cookieConsent', 'all', 365);
-            setCookie('analyticsConsent', 'true', 365);
-            hideCookieConsent();
-            // Enable Google Analytics
-            gtag('consent', 'update', {
-                'analytics_storage': 'granted'
-            });
-        }
-
-        function acceptEssentialCookies() {
-            setCookie('cookieConsent', 'essential', 365);
-            setCookie('analyticsConsent', 'false', 365);
-            hideCookieConsent();
-            // Disable Google Analytics
-            gtag('consent', 'update', {
-                'analytics_storage': 'denied'
-            });
-        }
-
-        function showCookieSettings() {
-            document.getElementById('cookieSettings').style.display = 'block';
-        }
-
-        function closeCookieSettings() {
-            document.getElementById('cookieSettings').style.display = 'none';
-        }
-
-        function saveCookieSettings() {
-            const analyticsConsent = document.getElementById('analyticsCookies').checked;
-            setCookie('cookieConsent', 'custom', 365);
-            setCookie('analyticsConsent', analyticsConsent.toString(), 365);
-            
-            // Update Google Analytics consent
-            gtag('consent', 'update', {
-                'analytics_storage': analyticsConsent ? 'granted' : 'denied'
-            });
-            
-            hideCookieConsent();
-            closeCookieSettings();
-        }
-
-        function hideCookieConsent() {
-            document.getElementById('cookieConsent').style.display = 'none';
-        }
-
-        function showPrivacyPolicy() {
-            // This would show your privacy policy
-            alert('Privacy Policy - In fase di implementazione');
-        }
-
-        // Toggle About Content Function
-        function toggleAboutContent() {
-            const expandedContent = document.getElementById('about-expanded');
-            const readMoreText = document.getElementById('read-more-text');
-            const readMoreIcon = document.getElementById('read-more-icon');
-            
-            if (expandedContent.style.display === 'none') {
-                expandedContent.style.display = 'block';
-                readMoreText.textContent = 'Leggi di meno';
-                readMoreIcon.className = 'fas fa-chevron-up';
-                
-                // Smooth scroll to expanded content
-                expandedContent.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest' 
-                });
-            } else {
-                expandedContent.style.display = 'none';
-                readMoreText.textContent = 'Leggi di più';
-                readMoreIcon.className = 'fas fa-chevron-down';
-            }
-        }
-
-        // Cookie utility functions
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
-        }
-
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
-
-        // Initialize cookie consent
-        document.addEventListener('DOMContentLoaded', function() {
-            // Show cookie consent if not already accepted
-            setTimeout(showCookieConsent, 1000);
-            
-            // Set initial Google Analytics consent
-            const analyticsConsent = getCookie('analyticsConsent');
-            if (analyticsConsent === 'true') {
-                gtag('consent', 'update', {
-                    'analytics_storage': 'granted'
-                });
-            } else {
-                gtag('consent', 'update', {
-                    'analytics_storage': 'denied'
-                });
-            }
-        });
     </script>
 </body>
 </html>
