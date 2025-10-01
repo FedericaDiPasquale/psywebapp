@@ -1359,7 +1359,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 2rem;
     margin-bottom: 2rem;
 }
@@ -1548,6 +1548,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Footer Responsive */
+@media (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
