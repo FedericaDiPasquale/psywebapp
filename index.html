@@ -494,8 +494,46 @@
                 <p>Hai domande? Contattami direttamente tramite il modulo qui sotto</p>
             </div>
             <div class="contact-form-container">
-                <!-- Calendly Contact Form Widget -->
-                <div class="calendly-inline-widget" data-url="https://calendly.com/d/cwdr-vxj-43f?hide_gdpr_banner=1&primary_color=729474&locale=it-IT" style="width:100%;height:700px;"></div>
+                <form id="contactForm" class="contact-form" action="https://formspree.io/f/xnngjrkq" method="POST" onsubmit="return false;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactName">Nome *</label>
+                            <input type="text" id="contactName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email *</label>
+                            <input type="email" id="contactEmail" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactPhone">Telefono</label>
+                            <input type="tel" id="contactPhone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Oggetto</label>
+                            <select id="contactSubject" name="subject">
+                                <option value="">Seleziona un argomento</option>
+                                <option value="consulenza">Richiesta Consulenza</option>
+                                <option value="informazioni">Informazioni Generali</option>
+                                <option value="appuntamento">Prenotazione Appuntamento</option>
+                                <option value="altro">Altro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Messaggio *</label>
+                        <textarea id="contactMessage" name="message" rows="6" placeholder="Descrivi il motivo del tuo contatto..." required></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="contactPrivacy" name="privacy" required>
+                            <span class="checkmark"></span>
+                            Accetto la <a href="#privacy-policy" onclick="showPrivacyPolicy()">Privacy Policy</a> *
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Invia Messaggio</button>
+                </form>
             </div>
         </div>
     </section>
