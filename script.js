@@ -450,19 +450,21 @@ function removeLoadingState(element) {
 
 // Toggle About Content (Leggi di più button)
 function toggleAboutContent() {
-    const aboutContent = document.querySelector('.about-content');
+    const aboutExpanded = document.getElementById('about-expanded');
     const readMoreBtn = document.getElementById('read-more-btn');
     const readMoreText = document.getElementById('read-more-text');
     const readMoreIcon = document.getElementById('read-more-icon');
     
-    if (aboutContent && readMoreBtn && readMoreText && readMoreIcon) {
-        aboutContent.classList.toggle('expanded');
+    if (aboutExpanded && readMoreBtn && readMoreText && readMoreIcon) {
+        const isHidden = aboutExpanded.style.display === 'none' || aboutExpanded.style.display === '';
         
-        if (aboutContent.classList.contains('expanded')) {
+        if (isHidden) {
+            aboutExpanded.style.display = 'block';
             readMoreText.textContent = 'Leggi di meno';
             readMoreIcon.classList.remove('fa-chevron-down');
             readMoreIcon.classList.add('fa-chevron-up');
         } else {
+            aboutExpanded.style.display = 'none';
             readMoreText.textContent = 'Leggi di più';
             readMoreIcon.classList.remove('fa-chevron-up');
             readMoreIcon.classList.add('fa-chevron-down');
