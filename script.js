@@ -36,17 +36,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background change on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
-    }
-});
 
 // Contact Form validation and submission
 const contactForm = document.getElementById('contactForm');
@@ -583,12 +572,65 @@ function hideCalendlyWidgets() {
     }
 }
 
+
+// Hamburger Menu Toggle
+function toggleHamburger() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    
+    if (hamburger && mobileNav) {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    }
+}
+
+// Close mobile menu when clicking on a link
+function closeMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    
+    if (hamburger && mobileNav) {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    }
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Dr. Di Pasquale Lorena - Psicoterapeuta website loaded successfully');
     
     // Show cookie consent
     showCookieConsent();
+    
+    // Hamburger menu functionality
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleHamburger);
+    }
+    
+    // Mobile navigation links
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            
+            if (target) {
+                // Close mobile menu
+                closeMobileMenu();
+                
+                // Smooth scroll to target
+                setTimeout(() => {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300); // Wait for menu to close
+            }
+        });
+    });
+    
     
     // Add any initialization code here
     const currentYear = new Date().getFullYear();

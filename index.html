@@ -37,8 +37,8 @@
     <meta name="geo.placename" content="Ragusa">
     <meta name="geo.position" content="36.9256;14.7375">
     <meta name="ICBM" content="36.9256, 14.7375">
-    <meta name="theme-color" content="#729474">
-    <meta name="msapplication-TileColor" content="#729474">
+    <meta name="theme-color" content="#4080a3">
+    <meta name="msapplication-TileColor" content="#4080a3">
     
     <!-- Local SEO Meta Tags -->
     <meta name="locality" content="Ragusa">
@@ -247,66 +247,64 @@
     </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" role="navigation" aria-label="Menu principale">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>Psicologa - Psicoterapeuta - Ragusa</h2>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">Chi Sono</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link">Trattamenti</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#booking" class="nav-link">Prenota</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact-form" class="nav-link">Invia un messaggio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contatti</a>
-                </li>
-            </ul>
+    <!-- Hero Section -->
+    <main>
+        <section id="home" class="hero" role="banner">
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-        </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <nav class="mobile-nav" id="mobileNav">
+                <ul class="mobile-nav-menu">
+                    <li class="mobile-nav-item">
+                        <a href="#home" class="mobile-nav-link">Home</a>
+                </li>
+                    <li class="mobile-nav-item">
+                        <a href="#about" class="mobile-nav-link">Chi Sono</a>
+                </li>
+                    <li class="mobile-nav-item">
+                        <a href="#services" class="mobile-nav-link">Trattamenti</a>
+                </li>
+                    <li class="mobile-nav-item">
+                        <a href="#booking" class="mobile-nav-link">Prenota</a>
+                </li>
+                    <li class="mobile-nav-item">
+                        <a href="#contact-form" class="mobile-nav-link">Invia un messaggio</a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a href="#contact" class="mobile-nav-link">Contatti</a>
+                </li>
+            </ul>
     </nav>
-
-    <!-- Hero Section -->
-    <main>
-        <section id="home" class="hero" role="banner">
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Dott.ssa<br>Di Pasquale Lorena</h1>
                 <p class="hero-subtitle">Psicologa • Psicoterapeuta</p>
                 <p class="hero-tagline">Terapia Online e Presenziale a Ragusa</p>
-                <p class="hero-description">
-                    Psicologa e Psicoterapeuta specializzata a Ragusa. Offro terapia online e presenziale 
-                    per accompagnare le persone nel loro percorso di crescita personale e benessere psicologico 
-                    attraverso un approccio terapeutico personalizzato e professionale.
-                </p>
+                <div class="hero-logos">
+                    <div class="logo-item">
+                        <i class="fas fa-brain" aria-hidden="true"></i>
+                        <span>Psicologa</span>
+                    </div>
+                    <div class="logo-item">
+                        <i class="fas fa-certificate" aria-hidden="true"></i>
+                        <span>Psicoterapeuta</span>
+                    </div>
+                    <div class="logo-item">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                        <span>Terapia Personalizzata</span>
+                    </div>
+                    <div class="logo-item">
+                        <i class="fas fa-laptop" aria-hidden="true"></i>
+                        <span>Online & Presenziale</span>
+                    </div>
+                </div>
                 <div class="hero-buttons">
                     <a href="#booking" class="btn btn-primary">Prenota un appuntamento</a>
-                    <a href="#about" class="btn btn-secondary">Scopri di più</a>
                 </div>
-            </div>
-            <div class="hero-image">
-                <img src="fotopsyweb.jpg" 
-                     alt="Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta specializzata a Ragusa" 
-                     class="hero-photo"
-                     width="400"
-                     height="500"
-                     loading="eager"
-                     fetchpriority="high">
             </div>
         </div>
     </section>
@@ -370,6 +368,14 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="about-image">
+                    <img src="fotopsyweb.jpg" 
+                         alt="Dott.ssa Di Pasquale Lorena - Psicologa e Psicoterapeuta specializzata a Ragusa" 
+                         class="about-photo"
+                         width="400"
+                         height="500"
+                         loading="lazy">
                 </div>
             </div>
         </div>
@@ -695,6 +701,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Calendly widget will auto-initialize
             console.log('✅ Calendly widget ready');
+            
+            // Update theme colors from CSS variables
+            const primaryColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--primary-color').trim();
+            
+            if (primaryColor) {
+                // Update theme-color meta tag
+                const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+                if (themeColorMeta) {
+                    themeColorMeta.setAttribute('content', primaryColor);
+                }
+                
+                // Update msapplication-TileColor meta tag
+                const tileColorMeta = document.querySelector('meta[name="msapplication-TileColor"]');
+                if (tileColorMeta) {
+                    tileColorMeta.setAttribute('content', primaryColor);
+                }
+                
+                console.log('✅ Theme colors updated to:', primaryColor);
+            }
         });
 
     </script>
